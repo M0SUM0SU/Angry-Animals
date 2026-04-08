@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://c1wrxnb4wq57o"]
+
+[ext_resource type="Script" uid="uid://deta2h51g21dm" path="res://bird.gd" id="1_xp6k3"]
+[ext_resource type="Texture2D" uid="uid://bya63gl2ypgsg" path="res://assets/player/parrot.png" id="2_ccwru"]
+[ext_resource type="Texture2D" uid="uid://3n3rxk5rs58l" path="res://assets/items/arrow.png" id="3_lnxr4"]
+[ext_resource type="AudioStream" uid="uid://cp2xhlk6m73tm" path="res://assets/audio/stretch2.ogg" id="4_rkutc"]
+[ext_resource type="AudioStream" uid="uid://df2gvciba1y8y" path="res://assets/audio/catapult.ogg" id="5_i1sd7"]
+[ext_resource type="AudioStream" uid="uid://niyj6hqbnljd" path="res://assets/audio/kick_wood.ogg" id="6_vgsrs"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xp6k3"]
+bounce = 0.2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cdbm8"]
+radius = 19.0
+
+[node name="Bird" type="RigidBody2D"]
+input_pickable = true
+physics_material_override = SubResource("PhysicsMaterial_xp6k3")
+freeze = true
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_xp6k3")
+
+[node name="Bird" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_ccwru")
+
+[node name="Arrow" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_lnxr4")
+centered = false
+offset = Vector2(39, -102)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_cdbm8")
+
+[node name="Debug" type="Label" parent="."]
+visible = false
+offset_left = -41.0
+offset_top = -100.0
+offset_right = 42.0
+offset_bottom = -74.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Debugging"
+
+[node name="StretchS" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_rkutc")
+
+[node name="LaunchS" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_i1sd7")
+
+[node name="KickS" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_vgsrs")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="sleeping_state_changed" from="." to="." method="_on_sleeping_state_changed"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

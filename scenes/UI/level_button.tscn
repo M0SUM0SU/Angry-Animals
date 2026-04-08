@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmgdxirfh3kqm"]
+
+[ext_resource type="Texture2D" uid="uid://ikfdpq7d3ipx" path="res://assets/ui/panel_beige.png" id="1_5yt3r"]
+[ext_resource type="FontFile" uid="uid://hsmoc3a230pl" path="res://assets/fonts/LuckiestGuy-Regular.ttf" id="2_5yt3r"]
+[ext_resource type="Script" uid="uid://ne73beo22fi3" path="res://scenes/UI/level_button.gd" id="2_7rldp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7rldp"]
+font = ExtResource("2_5yt3r")
+font_size = 49
+font_color = Color(1, 0.827451, 0.235294, 1)
+outline_size = 10
+outline_color = Color(0.422352, 0.418549, 1.92523e-07, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_btco6"]
+font = ExtResource("2_5yt3r")
+font_size = 26
+font_color = Color(0.812873, 0.657238, 0, 1)
+outline_size = 10
+outline_color = Color(0.422352, 0.418549, 1.92523e-07, 1)
+
+[node name="LevelButton" type="TextureButton"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+texture_normal = ExtResource("1_5yt3r")
+script = ExtResource("2_7rldp")
+
+[node name="Mc" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Mc"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Level" type="Label" parent="Mc/VBoxContainer"]
+layout_mode = 2
+text = "3"
+label_settings = SubResource("LabelSettings_7rldp")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Score" type="Label" parent="Mc/VBoxContainer"]
+layout_mode = 2
+text = "999"
+label_settings = SubResource("LabelSettings_btco6")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]
